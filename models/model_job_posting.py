@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.sql import func
 from database import Base
 
 class Job_Postings(Base):
@@ -13,5 +14,5 @@ class Job_Postings(Base):
     skills = Column(String(100))
     location = Column(String(50))
     salary = Column(Integer)
-    posted_at = Column(String(20))
+    posted_at = Column(DateTime(timezone=True), server_default=func.now())
     apply_before = Column(String(20))

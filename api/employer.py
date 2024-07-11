@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends, status
 from pydantic import BaseModel, Field
 from typing import Annotated, Optional
 from sqlalchemy.orm import Session
+from datetime import datetime
 
 from models.model_employer import Employers
 from database import Sessionlocal
@@ -15,14 +16,14 @@ class EmployersBase(BaseModel):
     last_name: str
     phone: int
     address: str
-    created_at: str
-    updated_at: str
 
 class EmployersCreate(EmployersBase):
     pass
 
 class EmployersRead(EmployersBase):
     id: int
+    created_at: datetime
+    updated_at: datetime
 
     class Config:
         from_attributes = True
@@ -55,7 +56,7 @@ async def read_employee(emp_Id: int, db: db_dependency):
 # Employers Table POST Method
 @employer.post("/employer/", response_model=EmployersRead, status_code=status.HTTP_201_CREATED)
 async def create_employee(emp: EmployersCreate, db: db_dependency):
-    db_post = Employers(**emp.dict())
+    db_post = Employers(**emp.model_dump())
     db.add(db_post)
     db.commit()
     db.refresh(db_post)

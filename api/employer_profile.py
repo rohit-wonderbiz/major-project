@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends, status
 from pydantic import BaseModel, Field
 from typing import Annotated, Optional
 from sqlalchemy.orm import Session
+from datetime import datetime
 
 from models.model_employer_profile import Employer_Profiles
 from database import Sessionlocal
@@ -13,14 +14,14 @@ class Employer_ProfilesBase(BaseModel):
     company_name: str
     company_description:str
     website: str
-    created_at: str
-    updated_at: str
 
 class Employers_ProfilesCreate(Employer_ProfilesBase):
     pass
 
 class Employers_ProfilesRead(Employer_ProfilesBase):
     id: int
+    created_at: datetime
+    updated_at: datetime
 
     class Config:
         from_attributes = True

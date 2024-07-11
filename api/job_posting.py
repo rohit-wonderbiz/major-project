@@ -3,6 +3,7 @@ from fastapi import APIRouter, HTTPException, Depends, status
 from pydantic import BaseModel, Field
 from typing import Annotated, Optional
 from sqlalchemy.orm import Session
+from datetime import datetime
 
 from models.model_job_posting import Job_Postings
 from database import Sessionlocal
@@ -18,7 +19,6 @@ class Job_PostingsBase(BaseModel):
     skills: str
     location: str
     salary: int
-    posted_at: str
     apply_before: str
 
 class Job_PostingsCreate(Job_PostingsBase):
@@ -26,6 +26,7 @@ class Job_PostingsCreate(Job_PostingsBase):
 
 class Job_PostingsRead(Job_PostingsBase):
     id: int
+    posted_at: datetime
 
     class Config:
         from_attributes = True
