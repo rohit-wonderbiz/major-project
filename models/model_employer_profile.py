@@ -3,7 +3,7 @@ from sqlalchemy.sql import func
 from database import Base
 
 class Employer_Profiles(Base):
-    __tablename__ = 'Employer_Profiles'
+    __tablename__ = 'employer_profiles'
 
     id = Column(Integer, primary_key=True, index = True, autoincrement=True)
     employer_id = Column(Integer)  #To make Foreign key
